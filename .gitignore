@@ -1,0 +1,17 @@
+.DS_Store
+**/.DS_Store
+target
+**/target
+idea
+.idea
+**/idea
+**/.idea
+*.iml
+out
+*.iws
+*.ipr
+*.ids
+**/resources/META-INF
+.project
+.classpath
+
