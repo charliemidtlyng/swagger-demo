@@ -86,7 +86,7 @@ Intro med Spring+Jersey+Jetty+Maven:
 	@ApiResponses(value = { @ApiResponse(code = 405, message = "Invalid input") })
 	@ApiParam(value = "A project")
 
-    @ApiOperation(value="Add project")
+    @ApiOperation(value="Delete project")
     @ApiResponses(value = { @ApiResponse(code = 405, message = "Non-existing project id") })
     @ApiParam(value = "A project id")
 
