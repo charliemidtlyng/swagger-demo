@@ -1,0 +1,106 @@
+Swagger demo - lyntale BEKK
+
+Du har et REST api som har dokumentasjon som er vanskelig å vedlikeholde (evt. ingen dokumentasjon)?
+
+- https://github.com/wordnik/swagger-core er et nyttig sted å starte
+
+Intro med Spring+Jersey+Jetty+Maven:
+
+1) pom.xml
+<dependency>
+    <groupId>com.wordnik</groupId>
+    <artifactId>swagger-jaxrs_2.10</artifactId>
+    <version>1.3.2</version>
+</dependency>
+
+2) web.xml
+     <servlet>
+        <servlet-name>jersey-servlet</servlet-name>
+        <servlet-class>
+            com.sun.jersey.spi.spring.container.servlet.SpringServlet
+        </servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>com.wordnik.swagger.jaxrs.json;no.bekk.swagger.example.resources;com.wordnik.swagger.jaxrs.listing</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.config.feature.DisableWADL</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+            <param-value>com.sun.jersey.api.container.filter.PostReplaceFilter</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>DefaultJaxrsConfig</servlet-name>
+        <servlet-class>com.wordnik.swagger.jaxrs.config.DefaultJaxrsConfig</servlet-class>
+        <init-param>
+            <param-name>api.version</param-name>
+            <param-value>1.0.0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>swagger.api.basepath</param-name>
+            <param-value>http://localhost:1337/rest</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>jersey-servlet</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+
+3) Kopier inn innholdet fra dist på https://github.com/wordnik/swagger-ui/tree/develop-2.0 til "webapp/swagger"
+4) mvn jetty:run -> http://localhost:1337/swagger
+5) ProjectResource
+	@Api(value = "/rest/projects")
+
+	@ApiOperation(
+	        value = "Find all projects",
+	        response = Project.class,
+	        responseContainer = "List"
+	)
+
+	@ApiOperation(
+	        value = "Find project by id",
+	        response = Project.class
+	)
+	@ApiParam(value = "id of project", required = true)
+	
+	@ApiOperation(
+	        value = "Find all projects given an employee",
+	        response = Project.class,
+	        responseContainer = "List"
+	)
+	@ApiParam(value = "id of employee", required = true)
+
+	@ApiOperation(value="Add project")
+	@ApiResponses(value = { @ApiResponse(code = 405, message = "Invalid input") })
+	@ApiParam(value = "A project")
+
+    @ApiOperation(value="Add project")
+    @ApiResponses(value = { @ApiResponse(code = 405, message = "Non-existing project id") })
+    @ApiParam(value = "A project id")
+
+6) EmployeeResource
+	@ApiOperation(
+            value = "Find all employees",
+            response = Employee.class,
+            responseContainer = "List") 
+
+    @ApiOperation(
+            value = "Find employees working within a specific departement",
+            response = Employee.class,
+            responseContainer = "List",
+            notes = "Find an employee")
+
+    @ApiParam(value = "departement of the employees to be fetched", required = true,
+                    allowableValues = "Administration,Technology,Design,BMC,Other")

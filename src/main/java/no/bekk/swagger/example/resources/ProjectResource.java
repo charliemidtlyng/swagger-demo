@@ -81,9 +81,7 @@ public class ProjectResource {
 
     @DELETE
     @Path("/{projectId}")
-    @ApiOperation(
-            value="Add project"
-    )
+    @ApiOperation(value="Add project")
     @ApiResponses(value = { @ApiResponse(code = 405, message = "Non-existing project id") })
     public Response deleteProject(@ApiParam(value = "A project id") @PathParam("projectId") Long projectId) {
         try {
