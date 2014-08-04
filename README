@@ -58,7 +58,7 @@ Intro med Spring+Jersey+Jetty+Maven:
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
 
-3) Kopier inn innholdet fra dist på https://github.com/wordnik/swagger-ui/tree/develop-2.0 til "webapp/swagger"
+3) Kopier inn innholdet fra dist på https://github.com/wordnik/swagger-ui/tree/develop-2.0 til "webapp/swagger". Bytt til http://localhost:1337/rest/api-doc
 4) mvn jetty:run -> http://localhost:1337/swagger
 5) ProjectResource
 	@Api(value = "/rest/projects")
@@ -74,7 +74,7 @@ Intro med Spring+Jersey+Jetty+Maven:
 	        response = Project.class
 	)
 	@ApiParam(value = "id of project", required = true)
-	
+
 	@ApiOperation(
 	        value = "Find all projects given an employee",
 	        response = Project.class,
@@ -91,6 +91,9 @@ Intro med Spring+Jersey+Jetty+Maven:
     @ApiParam(value = "A project id")
 
 6) EmployeeResource
+
+	@Api(value = "/rest/employees")
+
 	@ApiOperation(
             value = "Find all employees",
             response = Employee.class,
