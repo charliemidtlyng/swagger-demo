@@ -1,6 +1,7 @@
 package no.bekk.swagger.example.service;
 
 import no.bekk.swagger.example.domain.Employee;
+import sun.security.krb5.internal.crypto.Des;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +23,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee jerome = createEmployee(3, "Jerome", 27, 400000, Technology, philipp);
         Employee mats = createEmployee(4, "Mats", 45, 800000, Administration, null);
         Employee benedikt = createEmployee(5, "Benedikt", 25, 2000000, BMC, manuel);
-        Employee bastian = createEmployee(6, "Bastian", 25, 2000000, Design, manuel);
-        Employee mesut = createEmployee(7, "Mesut", 25, 2000000, Other, mats);
-        return asList(manuel, philipp, jerome, mats, benedikt, bastian, mesut);
+        Employee christoph = createEmployee(6, "Christoph", 25, 2000000, BMC, manuel);
+        Employee bastian = createEmployee(7, "Bastian", 25, 2000000, Design, benedikt);
+        Employee toni = createEmployee(8, "Toni", 25, 2000000, BMC, manuel);
+        Employee thomas = createEmployee(9, "Thomas", 25, 2000000, Technology, philipp);
+        Employee mesut = createEmployee(10, "Mesut", 25, 2000000, Other, mats);
+        Employee miroslav = createEmployee(11, "Miroslav", 25, 2000000, Design, mats);
+        return asList(manuel, philipp, jerome, mats, benedikt, christoph, bastian, toni, thomas, mesut, miroslav);
     }
 
     private static Employee createEmployee(long id, String name, int age, double salary, Departement departement, Employee supervisor) {
